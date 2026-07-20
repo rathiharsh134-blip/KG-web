@@ -243,54 +243,172 @@
 
 
 
-<!-- New Registration & Online Transaction Form Section -->
-<section id="register" class="registration-section">
-    <h2>New Member Registration</h2>
-    <p>Secure your slot today. Fill out your information and complete your transaction online.</p>
-    
-    <!-- Tip: Replace 'YOUR_FORMSPREE_ID' with a free token from Formspree.io to get submission emails -->
-    <form action="https://formspree.io/f/YOUR_FORMSPREE_ID" method="POST" class="registration-form">
-        <div class="form-group">
-            <label for="full-name">Full Name</label>
-            <input type="text" id="full-name" name="name" placeholder="Enter your full name" required>
-        </div>
-        
-        <div class="form-group">
-            <label for="phone-number">Phone Number</label>
-            <input type="tel" id="phone-number" name="phone" placeholder="Enter your mobile number" required>
-        </div>
-        
-        <div class="form-group">
-            <label for="select-plan">Choose Membership Plan</label>
-            <select id="select-plan" name="plan" required>
-                <option value="monthly">Monthly Pass — ₹150</option>
-                <option value="3-months">3 Months Plan — ₹360</option>
-                <option value="6-months">6 Months Plan — ₹600</option>
-            </select>
-        </div>
-        
-        <button type="submit" class="form-btn">Submit & Proceed to Payment</button>
-    </form>
-</section>
-
-
-
 
 <!-- Contact -->
 <section id="contact">
     <h2>Contact & Management</h2>
     <div class="contact-box">
         <!-- Change the Owner Name below to your friend's name -->
-        <p>👤 Gym Owner: <strong>[Mr Tejsingh Rathi]</strong></p>
-        <p>📍 Location: Kalipahari</p>
-        <p>📞 Phone: 8003550369</p>
+        <p>👤 Gym Owner: <strong>Mr Tejsingh Rathi</strong></p>
+        <p>📍 Location: Kali ke tau ka New Ghar,Kalipahari,Mundawar(Raj)</p>
+        <p>📞 Phone: +918003550369</p>
 
         <a class="whatsapp" href="#">
             Contact Us
         </a>
     </div>
 </section>
+<!-- New Registration & Dynamic UPI QR Code Section -->
+<section id="register" style="padding: 60px 20px; background-color: #1a1a1a; color: #ffffff; text-align: center; font-family: 'Poppins', sans-serif;">
+    <h2 style="font-size: 36px; margin-bottom: 10px; text-transform: uppercase; font-weight: 700;">New Member <span style="color: #ff4500;">Registration</span></h2>
+    <p style="color: #ccc; margin-bottom: 30px;">Secure your slot today. Fill out your details and pay instantly via UPI QR Code.</p>
+    
+    <!-- Outer Container that holds both the form and payment screen -->
+    <div style="max-width: 500px; margin: 0 auto; background: #262626; padding: 40px; border-radius: 10px; border: 1px solid #333; box-shadow: 0 10px 25px rgba(0,0,0,0.3); min-height: 350px;">
+        
+        <!-- STEP 1: THE REGISTRATION FORM -->
+        <!-- Replace 'YOUR_FORMSPREE_ID' with your free token from formspree.io to get submission emails -->
+        <form id="gymForm" action="https://formspree.io/f/YOUR_FORMSPREE_ID" method="POST" onsubmit="handleSubmit(event)" style="display: flex; flex-direction: column; gap: 20px;">
+            
+            <div style="text-align: left; display: flex; flex-direction: column; gap: 8px;">
+                <label for="full-name" style="font-weight: 500; font-size: 14px; color: #aaa;">Full Name</label>
+                <input type="text" id="full-name" name="name" placeholder="Enter your full name" required style="padding: 14px; background: #111; border: 1px solid #444; border-radius: 5px; color: #fff; font-family: 'Poppins', sans-serif; font-size: 15px; outline: none;">
+            </div>
+            
+            <div style="text-align: left; display: flex; flex-direction: column; gap: 8px;">
+                <label for="phone-number" style="font-weight: 500; font-size: 14px; color: #aaa;">Phone Number</label>
+                <input type="tel" id="phone-number" name="phone" placeholder="Enter your mobile number" required style="padding: 14px; background: #111; border: 1px solid #444; border-radius: 5px; color: #fff; font-family: 'Poppins', sans-serif; font-size: 15px; outline: none;">
+            </div>
+            
+            <div style="text-align: left; display: flex; flex-direction: column; gap: 8px;">
+                <label for="select-plan" style="font-weight: 500; font-size: 14px; color: #aaa;">Choose Membership Plan</label>
+                <select id="select-plan" name="plan" required style="padding: 14px; background: #111; border: 1px solid #444; border-radius: 5px; color: #fff; font-family: 'Poppins', sans-serif; font-size: 15px; outline: none; cursor: pointer;">
+                    <option value="monthly" style="background: #262626;">Monthly Pass — ₹150</option>
+                    <option value="3-months" style="background: #262626;">3 Months Plan — ₹360</option>
+                    <option value="6-months" style="background: #262626;">6 Months Plan — ₹600</option>
+                </select>
+            </div>
+            
+            <button type="submit" style="padding: 16px; background-color: #ff4500; color: white; border: none; border-radius: 5px; font-weight: 700; font-size: 16px; cursor: pointer; font-family: 'Poppins', sans-serif; text-transform: uppercase; letter-spacing: 1px; transition: background 0.3s; margin-top: 10px;">
+                Proceed to Pay
+            </button>
+        </form>
 
+       <!-- STEP 2: THE UPI QR CODE SCREEN -->
+        <div id="paymentScreen" style="display: none; flex-direction: column; align-items: center; justify-content: center; gap: 20px;">
+            <h3 style="color: #ff4500; text-transform: uppercase; margin: 0; font-weight: 600;">Scan QR to Pay</h3>
+            <p style="font-size: 14px; color: #bbb; margin: 0;">Please scan the QR code below using GPay, PhonePe, or Paytm to complete your registration.</p>
+            
+            <img id="qrImage" src="images/owner-qr.png" alt="Gym Owner UPI QR Code" style="width: 220px; height: 220px; border: 4px solid #fff; border-radius: 10px; background: #fff; box-shadow: 0 4px 10px rgba(0,0,0,0.5);">
+            
+            <div style="background: #111; padding: 10px 15px; border-radius: 5px; border: 1px solid #444; width: 100%; box-sizing: border-box;">
+                <p style="margin: 0; font-size: 14px; color: #aaa;">Amount Due: <strong id="amountDue" style="color: #fff;">₹150</strong></p>
+            </div>
+            
+            <p style="font-size: 12px; color: #888; margin: 0; font-style: italic;">Note: Once paid, your membership will be activated after owner verification.</p>
+        </div>
+
+    </div>
+</section>
+
+<!-- Smooth Step-Switching JavaScript -->
+<script>
+    function handleSubmit(event) {
+    event.preventDefault(); // Stop normal redirect page refresh
+    
+    const form = document.getElementById('gymForm');
+    const planSelect = document.getElementById('select-plan');
+    const amountDueElement = document.getElementById('amountDue');
+    
+    let price = "₹150";
+    if (planSelect.value === "3-months") price = "₹360";
+    if (planSelect.value === "6-months") price = "₹600";
+    amountDueElement.innerText = price;
+    
+    fetch(form.action, {
+        method: form.method,
+        body: new FormData(form),
+        headers: {
+            'Accept': 'application/json'
+        }
+    }).then(response => {
+        if (response.ok) {
+            form.style.display = 'none';
+            document.getElementById('paymentScreen').style.display = 'flex';
+        } else {
+            alert("Oops! There was a problem submitting your registration.");
+        }
+    }).catch(error => {
+        alert("Oops! Connection error.");
+    });
+}
+</script>
+function handleSubmit(event) {
+    event.preventDefault(); // Stop normal redirect page refresh
+    
+    const form = document.getElementById('gymForm');
+    const planSelect = document.getElementById('select-plan');
+    const amountDueElement = document.getElementById('amountDue');
+    
+    let price = "₹150";
+    if (planSelect.value === "3-months") price = "₹360";
+    if (planSelect.value === "6-months") price = "₹600";
+    amountDueElement.innerText = price;
+    
+    fetch(form.action, {
+        method: form.method,
+        body: new FormData(form),
+        headers: {
+            'Accept': 'application/json'
+        }
+    }).then(response => {
+        if (response.ok) {
+            form.style.display = 'none';
+            document.getElementById('paymentScreen').style.display = 'flex';
+        } else {
+            alert("Oops! There was a problem submitting your registration.");
+        }
+    }).catch(error => {
+        alert("Oops! Connection error.");
+    });
+}
+</script>
+
+<!-- Smooth Step-Switching JavaScript -->
+<script>
+function handleSubmit(event) {
+    event.preventDefault(); // Stop normal redirect page refresh
+    
+    const form = document.getElementById('gymForm');
+    const planSelect = document.getElementById('select-plan');
+    const amountDueElement = document.getElementById('amountDue');
+    
+    // Set dynamic amount text based on what plan they pick
+    let price = "₹150";
+    if (planSelect.value === "3-months") price = "₹360";
+    if (planSelect.value === "6-months") price = "₹600";
+    amountDueElement.innerText = price;
+    </script>
+    // Send form data in the background to Formspree
+    fetch(form.action, {
+        method: form.method,
+        body: new FormData(form),
+        headers: {
+            'Accept': 'application/json'
+        }
+    }).then(response => {
+        if (response.ok) {
+            // Hide the form and smoothly show the QR code screen
+            form.style.display = 'none';
+            document.getElementById('paymentScreen').style.display = 'flex';
+        } else {
+            alert("Oops! There was a problem submitting your registration. Please try again.");
+        }
+    }).catch(error => {
+        alert("Oops! Connection error. Please try again.");
+    });
+}
+</script>
 
 
 
