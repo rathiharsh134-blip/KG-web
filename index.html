@@ -12,6 +12,86 @@
 
     <!-- CSS File -->
     <link rel="stylesheet" href="style.css">
+    
+    <!-- Inline Styles for the New Form to match your clean aesthetic without needing to edit style.css -->
+    <style>
+        .registration-section {
+            padding: 60px 20px;
+            background-color: #f9f9f9;
+            text-align: center;
+        }
+        .registration-form {
+            max-width: 500px;
+            margin: 30px auto 0 auto;
+            background: #ffffff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        .form-group {
+            text-align: left;
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+        .form-group label {
+            font-weight: 500;
+            font-family: 'Poppins', sans-serif;
+            font-size: 14px;
+        }
+        .registration-form input, .registration-form select {
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 15px;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+        .registration-form input:focus, .registration-form select:focus {
+            border-color: #ff4500; /* Adjust this to match your gym theme color */
+        }
+        .form-btn {
+            padding: 14px;
+            background-color: #ff4500; /* Adjust to match theme */
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-weight: 600;
+            font-size: 16px;
+            cursor: pointer;
+            font-family: 'Poppins', sans-serif;
+            transition: background 0.3s;
+            text-decoration: none;
+            display: inline-block;
+        }
+        .form-btn:hover {
+            background-color: #d33600;
+        }
+        .plan-card a.btn-link {
+            display: inline-block;
+            width: 80%;
+            padding: 10px 0;
+            background-color: #333;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: 600;
+            transition: 0.3s;
+        }
+        .plan-card.popular a.btn-link {
+            background-color: #ff4500;
+        }
+        .plan-card a.btn-link:hover {
+            background-color: #111;
+        }
+        .plan-card.popular a.btn-link:hover {
+            background-color: #d33600;
+        }
+    </style>
 </head>
 
 <body>
@@ -29,87 +109,68 @@
             <li><a href="#services">Services</a></li>
             <li><a href="#plans">Plans</a></li>
             <li><a href="#gallery">Gallery</a></li>
+            <li><a href="#register">Register</a></li>
             <li><a href="#contact">Contact</a></li>
         </ul>
 
-        <a href="#contact" class="join-btn">Join Now</a>
+        <a href="#register" class="join-btn">Join Now</a>
     </nav>
 </header>
 
 
 <!-- Hero Section -->
 <section id="home" class="hero">
-
     <div class="hero-content">
-
         <h1>
             Transform Your Body
             <span>With KG GYM</span>
         </h1>
-
         <p>
             Premium fitness training, modern equipment and a powerful environment
             to help you achieve your goals.
         </p>
-
         <a href="#plans" class="main-btn">
             View Membership
         </a>
-
     </div>
-
 </section>
 
 
 
 <!-- About Section -->
 <section id="about" class="about">
-
     <h2>About KG GYM</h2>
-
     <p>
         KG GYM located in Kalipahari is dedicated to helping people become
         stronger, healthier and more confident. Whether your goal is muscle
         building, weight loss or fitness improvement, we provide the right
         environment for your journey.
     </p>
-
 </section>
 
 
 
 <!-- Services -->
 <section id="services">
-
-<h2>Our Services</h2>
-
-<div class="cards">
-
-<div class="card">
-<h3>💪 Weight Training</h3>
-<p>Build strength and increase muscle with proper equipment.</p>
-</div>
-
-
-<div class="card">
-<h3>🔥 Fat Loss</h3>
-<p>Workout programs designed for a healthier lifestyle.</p>
-</div>
-
-
-<div class="card">
-<h3>🏋️ Personal Training</h3>
-<p>Professional guidance to improve your results.</p>
-</div>
-
-
-<div class="card">
-<h3>🥗 Fitness Guidance</h3>
-<p>Learn better workout and fitness habits.</p>
-</div>
-
-</div>
-
+    <h2>Our Services</h2>
+    <div class="cards">
+        <div class="card">
+            <h3>💪 Weight Training</h3>
+            <p>Build strength and increase muscle with proper equipment.</p>
+        </div>
+        <div class="card">
+            <h3>🔥 Fat Loss</h3>
+            <p>Workout programs designed for a healthier lifestyle.</p>
+        </div>
+        <div class="card">
+            <h3>🏋️ Personal Training</h3>
+            <p>Professional guidance to improve your results.</p>
+        </div>
+        <div class="card">
+            <h3>🥗 Fitness Guidance</h3>
+            <p>Learn better workout and fitness habits.</p>
+        </div>
+    </div>
 </section>
 
 
@@ -117,55 +178,34 @@
 
 <!-- Membership Plans -->
 <section id="plans">
+    <h2>Membership Plans</h2>
+    <div class="plans">
 
-<h2>Membership Plans</h2>
+        <div class="plan-card">
+            <h3>Monthly</h3>
+            <h1>₹150</h1>
+            <p>30 Days Gym Access</p>
+            <!-- Replace the '#' with your online payment link for the Monthly plan -->
+            <a href="#" target="_blank" class="btn-link">Pay & Join</a>
+        </div>
 
-<div class="plans">
+        <div class="plan-card popular">
+            <h3>3 Months</h3>
+            <h1>₹360</h1>
+            <p>90 Days Gym Access</p>
+            <!-- Replace the '#' with your online payment link for the 3 Months plan -->
+            <a href="#" target="_blank" class="btn-link">Pay & Join</a>
+        </div>
 
+        <div class="plan-card">
+            <h3>6 Months</h3>
+            <h1>₹600</h1>
+            <p>180 Days Gym Access</p>
+            <!-- Replace the '#' with your online payment link for the 6 Months plan -->
+            <a href="#" target="_blank" class="btn-link">Pay & Join</a>
+        </div>
 
-<div class="plan-card">
-
-<h3>Monthly</h3>
-
-<h1>₹150</h1>
-
-<p>30 Days Gym Access</p>
-
-<button>Join Now</button>
-
-</div>
-
-
-
-<div class="plan-card popular">
-
-<h3>3 Months</h3>
-
-<h1>₹360</h1>
-
-<p>90 Days Gym Access</p>
-
-<button>Join Now</button>
-
-</div>
-
-
-
-<div class="plan-card">
-
-<h3>6 Months</h3>
-
-<h1>₹600</h1>
-
-<p>180 Days Gym Access</p>
-
-<button>Join Now</button>
-
-</div>
-
-
-</div>
-
+    </div>
 </section>
 
 
@@ -174,25 +214,13 @@
 
 <!-- Gallery -->
 <section id="gallery">
-
-<h2>Gym Gallery</h2>
-
-
-<div class="gallery">
-
-
-<img src="images/gym1.jpg" alt="KG Gym">
-
-<img src="images/gym2.jpg" alt="KG Gym">
-
-<img src="images/gym3.jpg" alt="KG Gym">
-
-<img src="images/gym4.jpg" alt="KG Gym">
-
-
-</div>
-
-
+    <h2>Gym Gallery</h2>
+    <div class="gallery">
+        <img src="images/gym1.jpg" alt="KG Gym">
+        <img src="images/gym2.jpg" alt="KG Gym">
+        <img src="images/gym3.jpg" alt="KG Gym">
+        <img src="images/gym4.jpg" alt="KG Gym">
+    </div>
 </section>
 
 
@@ -201,51 +229,66 @@
 
 <!-- BMI Calculator -->
 <section class="bmi">
-
-<h2>BMI Calculator</h2>
-
-<div class="calculator">
-
-<input type="number" id="weight" placeholder="Weight (kg)">
-
-<input type="number" id="height" placeholder="Height (cm)">
-
-<button onclick="calculateBMI()">
-Calculate
-</button>
-
-<p id="result"></p>
-
-</div>
-
-
+    <h2>BMI Calculator</h2>
+    <div class="calculator">
+        <input type="number" id="weight" placeholder="Weight (kg)">
+        <input type="number" id="height" placeholder="Height (cm)">
+        <button onclick="calculateBMI()">
+            Calculate
+        </button>
+        <p id="result"></p>
+    </div>
 </section>
 
+
+
+
+<!-- New Registration & Online Transaction Form Section -->
+<section id="register" class="registration-section">
+    <h2>New Member Registration</h2>
+    <p>Secure your slot today. Fill out your information and complete your transaction online.</p>
+    
+    <!-- Tip: Replace 'YOUR_FORMSPREE_ID' with a free token from Formspree.io to get submission emails -->
+    <form action="https://formspree.io/f/YOUR_FORMSPREE_ID" method="POST" class="registration-form">
+        <div class="form-group">
+            <label for="full-name">Full Name</label>
+            <input type="text" id="full-name" name="name" placeholder="Enter your full name" required>
+        </div>
+        
+        <div class="form-group">
+            <label for="phone-number">Phone Number</label>
+            <input type="tel" id="phone-number" name="phone" placeholder="Enter your mobile number" required>
+        </div>
+        
+        <div class="form-group">
+            <label for="select-plan">Choose Membership Plan</label>
+            <select id="select-plan" name="plan" required>
+                <option value="monthly">Monthly Pass — ₹150</option>
+                <option value="3-months">3 Months Plan — ₹360</option>
+                <option value="6-months">6 Months Plan — ₹600</option>
+            </select>
+        </div>
+        
+        <button type="submit" class="form-btn">Submit & Proceed to Payment</button>
+    </form>
+</section>
 
 
 
 
 <!-- Contact -->
 <section id="contact">
+    <h2>Contact & Management</h2>
+    <div class="contact-box">
+        <!-- Change the Owner Name below to your friend's name -->
+        <p>👤 Gym Owner: <strong>[Mr Tejsingh Rathi]</strong></p>
+        <p>📍 Location: Kalipahari</p>
+        <p>📞 Phone: 8003550369</p>
 
-<h2>Contact KG GYM</h2>
-
-
-<div class="contact-box">
-
-<p>📍 Location: Kalipahari</p>
-
-<p>📞 Phone: kali123</p>
-
-
-<a class="whatsapp" href="#">
-Contact Us
-</a>
-
-
-</div>
-
-
+        <a class="whatsapp" href="#">
+            Contact Us
+        </a>
+    </div>
 </section>
 
 
@@ -253,20 +296,9 @@ Contact Us
 
 <!-- Footer -->
 <footer>
-
-<h3>
-KG GYM
-</h3>
-
-<p>
-Build Strength. Build Confidence.
-</p>
-
-<p>
-© 2026 KG GYM. All Rights Reserved.
-</p>
-
-
+    <h3>KG GYM</h3>
+    <p>Build Strength. Build Confidence.</p>
+    <p>© 2026 KG GYM. All Rights Reserved.</p>
 </footer>
 
 
