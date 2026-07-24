@@ -13,7 +13,7 @@
     <!-- CSS File -->
     <link rel="stylesheet" href="style.css">
     
-    <!-- Inline Styles for the New Form to match your clean aesthetic without needing to edit style.css -->
+    <!-- Inline Styles for the New Form and Modal -->
     <style>
         .registration-section {
             padding: 60px 20px;
@@ -52,11 +52,11 @@
             transition: border-color 0.3s;
         }
         .registration-form input:focus, .registration-form select:focus {
-            border-color: #ff4500; /* Adjust this to match your gym theme color */
+            border-color: #ff4500;
         }
         .form-btn {
             padding: 14px;
-            background-color: #ff4500; /* Adjust to match theme */
+            background-color: #ff4500;
             color: white;
             border: none;
             border-radius: 5px;
@@ -91,6 +91,121 @@
         .plan-card.popular a.btn-link:hover {
             background-color: #d33600;
         }
+
+        /* --- TRAINER MODAL STYLES --- */
+        .trainer-modal {
+            display: none;
+            position: fixed;
+            z-index: 9999;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(5px);
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        .trainer-modal-content {
+            background: #1e1e1e;
+            color: #fff;
+            padding: 35px 20px;
+            border-radius: 12px;
+            max-width: 650px;
+            width: 100%;
+            text-align: center;
+            position: relative;
+            border: 1px solid #333;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            max-height: 90vh;
+            overflow-y: auto;
+            font-family: 'Poppins', sans-serif;
+        }
+        .close-modal {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            font-size: 32px;
+            font-weight: bold;
+            color: #aaa;
+            cursor: pointer;
+            transition: 0.3s;
+            line-height: 1;
+        }
+        .close-modal:hover {
+            color: #ff4500;
+        }
+        .trainers-grid {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+        .trainer-card {
+            background: #111;
+            border: 1px solid #333;
+            border-radius: 10px;
+            padding: 25px 20px;
+            width: 240px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            transition: transform 0.3s ease, border-color 0.3s ease;
+        }
+        .trainer-card:hover {
+            transform: translateY(-5px);
+            border-color: #ff4500;
+        }
+        .trainer-img-wrapper {
+            width: 110px;
+            height: 110px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 3px solid #ff4500;
+            margin-bottom: 15px;
+            background-color: #222;
+        }
+        .trainer-img-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .trainer-card h3 {
+            margin: 5px 0 2px 0;
+            font-size: 18px;
+            font-weight: 700;
+            color: #fff;
+        }
+        .trainer-card .alias {
+            color: #ff4500;
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+        .trainer-card .role {
+            color: #aaa;
+            font-size: 13px;
+            margin-bottom: 20px;
+        }
+        .insta-btn {
+            display: inline-block;
+            width: 100%;
+            padding: 10px 0;
+            background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
+            color: #fff;
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 600;
+            border-radius: 5px;
+            transition: opacity 0.3s;
+            box-sizing: border-box;
+        }
+        .insta-btn:hover {
+            opacity: 0.9;
+        }
     </style>
 </head>
 
@@ -106,6 +221,7 @@
         <ul class="nav-links">
             <li><a href="#home">Home</a></li>
             <li><a href="#about">About</a></li>
+            <li><a href="javascript:void(0)" onclick="openTrainerModal()">Your Trainer</a></li>
             <li><a href="#services">Services</a></li>
             <li><a href="#plans">Plans</a></li>
             <li><a href="#gallery">Gallery</a></li>
@@ -116,7 +232,6 @@
         <a href="#register" class="join-btn">Join Now</a>
     </nav>
 </header>
-
 
 <!-- Hero Section -->
 <section id="home" class="hero">
@@ -135,8 +250,6 @@
     </div>
 </section>
 
-
-
 <!-- About Section -->
 <section id="about" class="about">
     <h2>About KG GYM</h2>
@@ -147,8 +260,6 @@
         environment for your journey.
     </p>
 </section>
-
-
 
 <!-- Services -->
 <section id="services">
@@ -173,9 +284,6 @@
     </div>
 </section>
 
-
-
-
 <!-- Membership Plans -->
 <section id="plans">
     <h2>Membership Plans</h2>
@@ -185,7 +293,6 @@
             <h3>Monthly</h3>
             <h1>₹150</h1>
             <p>30 Days Gym Access</p>
-            <!-- Replace the '#' with your online payment link for the Monthly plan -->
             <a href="#" target="_blank" class="btn-link">Pay & Join</a>
         </div>
 
@@ -193,7 +300,6 @@
             <h3>3 Months</h3>
             <h1>₹360</h1>
             <p>90 Days Gym Access</p>
-            <!-- Replace the '#' with your online payment link for the 3 Months plan -->
             <a href="#" target="_blank" class="btn-link">Pay & Join</a>
         </div>
 
@@ -201,16 +307,11 @@
             <h3>6 Months</h3>
             <h1>₹600</h1>
             <p>180 Days Gym Access</p>
-            <!-- Replace the '#' with your online payment link for the 6 Months plan -->
             <a href="#" target="_blank" class="btn-link">Pay & Join</a>
         </div>
 
     </div>
 </section>
-
-
-
-
 
 <!-- Gallery -->
 <section id="gallery">
@@ -221,10 +322,6 @@
         <img src="gym-3.png" alt="KG Gym">
     </div>
 </section>
-
-
-
-
 
 <!-- BMI Calculator -->
 <section class="bmi">
@@ -239,15 +336,10 @@
     </div>
 </section>
 
-
-
-
-
 <!-- Contact -->
 <section id="contact">
     <h2>Contact & Management</h2>
     <div class="contact-box">
-        <!-- Change the Owner Name below to your friend's name -->
         <p>👤 Gym Owner: <strong>Mr Tejsingh Rathi</strong></p>
         <p>📍 Location: Kali ke tau ka New Ghar,Kalipahari,Mundawar(Raj)</p>
         <p>📞 Phone: +918003550369</p>
@@ -257,16 +349,15 @@
         </a>
     </div>
 </section>
+
 <!-- New Registration & Dynamic UPI QR Code Section -->
 <section id="register" style="padding: 60px 20px; background-color: #1a1a1a; color: #ffffff; text-align: center; font-family: 'Poppins', sans-serif;">
     <h2 style="font-size: 36px; margin-bottom: 10px; text-transform: uppercase; font-weight: 700;">New Member <span style="color: #ff4500;">Registration</span></h2>
     <p style="color: #ccc; margin-bottom: 30px;">Secure your slot today. Fill out your details and pay instantly via UPI QR Code.</p>
     
-    <!-- Outer Container that holds both the form and payment screen -->
     <div style="max-width: 500px; margin: 0 auto; background: #262626; padding: 40px; border-radius: 10px; border: 1px solid #333; box-shadow: 0 10px 25px rgba(0,0,0,0.3); min-height: 350px;">
         
         <!-- STEP 1: THE REGISTRATION FORM -->
-        <!-- Replace 'YOUR_FORMSPREE_ID' with your free token from formspree.io to get submission emails -->
         <form id="gymForm" action="https://formspree.io/f/xbdnkjln" method="POST" onsubmit="handleSubmit(event)" style="display: flex; flex-direction: column; gap: 20px;">
             
             <div style="text-align: left; display: flex; flex-direction: column; gap: 8px;">
@@ -293,7 +384,7 @@
             </button>
         </form>
 
-     <!-- STEP 2: THE UPI QR CODE SCREEN -->
+        <!-- STEP 2: THE UPI QR CODE SCREEN -->
         <div id="paymentScreen" style="display: none; flex-direction: column; align-items: center; justify-content: center; gap: 15px;">
             <h3 style="color: #ff4500; text-transform: uppercase; margin: 0; font-weight: 600;">Scan QR to Pay</h3>
             <p style="font-size: 14px; color: #bbb; margin: 0;">Please scan the QR code below using GPay, PhonePe, or Paytm to complete your registration.</p>
@@ -304,13 +395,12 @@
                 <p style="margin: 0; font-size: 14px; color: #aaa;">Amount Due: <strong id="amountDue" style="color: #fff;">₹150</strong></p>
             </div>
             
-            <!-- Payment Done Trigger Button -->
             <button type="button" onclick="showCongratulations()" style="width: 100%; padding: 14px; background-color: #ff4500; color: white; border: none; border-radius: 5px; font-weight: 700; font-size: 15px; cursor: pointer; font-family: 'Poppins', sans-serif; text-transform: uppercase; letter-spacing: 1px; margin-top: 5px;">
                 ✅ Payment Done
             </button>
         </div>
 
-        <!-- STEP 3: CONGRATULATIONS & WHATSAPP SCREEN (Hidden by default) -->
+        <!-- STEP 3: CONGRATULATIONS & WHATSAPP SCREEN -->
         <div id="congratsScreen" style="display: none; flex-direction: column; align-items: center; justify-content: center; gap: 20px; padding: 10px 0;">
             <div style="font-size: 50px;">🎉</div>
             <h2 style="color: #25D366; text-transform: uppercase; margin: 0; font-weight: 700; font-size: 28px;">Congratulations!</h2>
@@ -320,39 +410,74 @@
                 <p style="margin: 0; font-size: 13px; color: #aaa;">Final Step: Please tap the button below to share your payment screenshot on WhatsApp to activate your gym membership immediately.</p>
             </div>
 
-            <!-- WhatsApp Direct Button -->
             <a href="https://wa.me/+918003550369?text=Hi!%20I%20have%20completed%20the%20payment%20for%20my%20KG%20GYM%20membership.%20Here%20is%20my%20payment%20screenshot:" 
                target="_blank" 
                style="display: inline-block; width: 100%; padding: 16px 0; background-color: #25D366; color: white; text-decoration: none; font-weight: 700; border-radius: 5px; text-transform: uppercase; font-size: 14px; box-sizing: border-box; box-shadow: 0 4px 12px rgba(37, 211, 102, 0.3);">
-               💬 Share Screenshot on WhatsApp
+                💬 Share Screenshot on WhatsApp
             </a>
         </div>
-<a href="https://wa.me/+918003550369?text=Hi!%20I%20have%20completed%20the%20payment%20for%20my%20KG%20GYM%20membership.%20Here%20is%20my%20screenshot:" 
-   target="_blank" 
-   style="display: inline-block; width: 100%; padding: 14px 0; background-color: #25D366; color: white; text-decoration: none; font-weight: 700; border-radius: 5px; text-transform: uppercase; font-size: 14px; box-sizing: border-box; margin-top: 15px;">
-   ✅ Done Payment? Share Screenshot on WhatsApp
-</a>
-        </div>
-
+        <a href="https://wa.me/+918003550369?text=Hi!%20I%20have%20completed%20the%20payment%20for%20my%20KG%20GYM%20membership.%20Here%20is%20my%20screenshot:" 
+           target="_blank" 
+           style="display: inline-block; width: 100%; padding: 14px 0; background-color: #25D366; color: white; text-decoration: none; font-weight: 700; border-radius: 5px; text-transform: uppercase; font-size: 14px; box-sizing: border-box; margin-top: 15px;">
+            ✅ Done Payment? Share Screenshot on WhatsApp
+        </a>
     </div>
 </section>
 
-<!-- Smooth Step-Switching JavaScript -->
+<!-- TRAINER MODAL POPUP -->
+<div id="trainerModal" class="trainer-modal">
+    <div class="trainer-modal-content">
+        <span class="close-modal" onclick="closeTrainerModal()">&times;</span>
+        
+        <h2 style="font-size: 28px; margin: 0 0 5px 0; text-transform: uppercase; font-weight: 700;">Meet Our <span style="color: #ff4500;">Trainers</span></h2>
+        <p style="color: #aaa; margin: 0 0 20px 0; font-size: 14px;">Expert guidance to help you transform your physique.</p>
+
+        <div class="trainers-grid">
+            
+            <!-- Trainer 1: Mr Tejsingh Rathi -->
+            <div class="trainer-card">
+                <div class="trainer-img-wrapper">
+                    <img src="gym-1.png" alt="Mr Tejsingh Rathi">
+                </div>
+                <h3>Mr Tejsingh Rathi</h3>
+                <span class="alias">(Kali Rathi)</span>
+                <p class="role">Head Trainer & Owner</p>
+                <a href="https://www.instagram.com/tej_rathii?igsh=MWg4Y3pnd2k2d3U1Mg==" target="_blank" class="insta-btn">
+                    📸 Instagram Profile
+                </a>
+            </div>
+
+            <!-- Trainer 2: Mr Garv Rathi -->
+            <div class="trainer-card">
+                <div class="trainer-img-wrapper">
+                    <img src="gym-2.png" alt="Mr Garv Rathi">
+                </div>
+                <h3>Mr Garv Rathi</h3>
+                <span class="alias">(Joni Jaat)</span>
+                <p class="role">Fitness & Strength Coach</p>
+                <a href="https://www.instagram.com/garv_rathi_018?igsh=MWd6aGp3dzVoYm9ieQ==" target="_blank" class="insta-btn">
+                    📸 Instagram Profile
+                </a>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!-- JavaScript Section -->
 <script>
 function handleSubmit(event) {
-    event.preventDefault(); // Prevent page refresh
+    event.preventDefault(); 
     
     const form = document.getElementById('gymForm');
     const planSelect = document.getElementById('select-plan');
     const amountDueElement = document.getElementById('amountDue');
     
-    // Set dynamic amount text based on plan chosen
     let price = "₹150";
     if (planSelect.value === "3-months") price = "₹360";
     if (planSelect.value === "6-months") price = "₹600";
     amountDueElement.innerText = price;
     
-    // Send form data in the background to Formspree
     fetch(form.action, {
         method: form.method,
         body: new FormData(form),
@@ -363,24 +488,20 @@ function handleSubmit(event) {
         console.log("Logged submission");
     });
 
-    // Switch from Form to QR Code Payment Screen
     form.style.display = 'none';
     document.getElementById('paymentScreen').style.display = 'flex';
 }
 
-// Function to switch from QR Code Screen to Congratulations Screen
 function showCongratulations() {
     document.getElementById('paymentScreen').style.display = 'none';
     document.getElementById('congratsScreen').style.display = 'flex';
 }
-</script>
-<script>
-// Your existing handleSubmit and showCongratulations functions...
 
-// --- ADD THIS BMI CALCULATOR FUNCTION ---
+// BMI CALCULATOR FUNCTION
 function calculateBMI() {
     const weight = parseFloat(document.getElementById('weight').value);
-    const height = parseFloat(document.getElementById('height').value) / 100; // Convert cm to meters
+    const height = parseFloat(document.getElementById('height').value) / 100;
+
     const resultElement = document.getElementById('result');
 
     if (isNaN(weight) || isNaN(height) || height <= 0 || weight <= 0) {
@@ -402,6 +523,24 @@ function calculateBMI() {
     resultElement.style.marginTop = "15px";
     resultElement.innerText = `Your BMI is ${bmi} (${category})`;
 }
+
+// TRAINER MODAL FUNCTIONS
+function openTrainerModal() {
+    document.getElementById('trainerModal').style.display = 'flex';
+}
+
+function closeTrainerModal() {
+    document.getElementById('trainerModal').style.display = 'none';
+}
+
+// Close popup if user clicks outside the modal content window
+window.onclick = function(event) {
+    const modal = document.getElementById('trainerModal');
+    if (event.target === modal) {
+        modal.style.display = 'none';
+    }
+}
 </script>
+
 </body>
 </html>
