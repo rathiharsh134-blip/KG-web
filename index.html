@@ -13,7 +13,7 @@
     <!-- CSS File -->
     <link rel="stylesheet" href="style.css">
     
-    <!-- Inline Styles for the New Form and Modal -->
+    <!-- Inline Styles for the New Form, Mobile Menu, and Modal -->
     <style>
         .registration-section {
             padding: 60px 20px;
@@ -92,6 +92,70 @@
             background-color: #d33600;
         }
 
+        /* --- MOBILE NAVIGATION & QUICK TRAINER BUTTON STYLES --- */
+        .nav-buttons-container {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .mobile-trainer-btn {
+            display: none;
+            background-color: #ff4500;
+            color: #ffffff;
+            border: none;
+            padding: 6px 14px;
+            border-radius: 5px;
+            font-weight: 600;
+            font-size: 13px;
+            cursor: pointer;
+            font-family: 'Poppins', sans-serif;
+            text-transform: uppercase;
+        }
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+        }
+        .hamburger span {
+            width: 25px;
+            height: 3px;
+            background-color: #ffffff;
+            border-radius: 2px;
+        }
+
+        @media screen and (max-width: 768px) {
+            .mobile-trainer-btn {
+                display: block;
+            }
+            .hamburger {
+                display: flex;
+            }
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background-color: #111111;
+                flex-direction: column;
+                text-align: center;
+                padding: 20px 0;
+                border-bottom: 3px solid #ff4500;
+                box-shadow: 0 10px 15px rgba(0,0,0,0.5);
+                z-index: 1000;
+            }
+            .nav-links.active {
+                display: flex;
+            }
+            .nav-links li {
+                margin: 10px 0;
+            }
+            .navbar .join-btn {
+                display: none;
+            }
+        }
+
         /* --- TRAINER MODAL STYLES --- */
         .trainer-modal {
             display: none;
@@ -113,7 +177,7 @@
             color: #fff;
             padding: 35px 20px;
             border-radius: 12px;
-            max-width: 650px;
+            max-width: 800px;
             width: 100%;
             text-align: center;
             position: relative;
@@ -149,7 +213,7 @@
             border: 1px solid #333;
             border-radius: 10px;
             padding: 25px 20px;
-            width: 240px;
+            width: 230px;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -188,7 +252,14 @@
         .trainer-card .role {
             color: #aaa;
             font-size: 13px;
-            margin-bottom: 20px;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+        .trainer-card .bio {
+            color: #888;
+            font-size: 12px;
+            margin-bottom: 15px;
+            line-height: 1.4;
         }
         .insta-btn {
             display: inline-block;
@@ -202,6 +273,7 @@
             border-radius: 5px;
             transition: opacity 0.3s;
             box-sizing: border-box;
+            margin-top: auto;
         }
         .insta-btn:hover {
             opacity: 0.9;
@@ -213,23 +285,33 @@
 
 <!-- Navigation -->
 <header>
-    <nav class="navbar">
+    <nav class="navbar" style="position: relative;">
         <div class="logo">
             KG <span>GYM</span>
         </div>
 
-        <ul class="nav-links">
-            <li><a href="#home">Home</a></li>
-            <li><a href="#about">About</a></li>
-            <li><a href="javascript:void(0)" onclick="openTrainerModal()">Your Trainer</a></li>
-            <li><a href="#services">Services</a></li>
-            <li><a href="#plans">Plans</a></li>
-            <li><a href="#gallery">Gallery</a></li>
-            <li><a href="#register">Register</a></li>
-            <li><a href="#contact">Contact</a></li>
+        <ul class="nav-links" id="navMenu">
+            <li><a href="#home" onclick="closeMobileMenu()">Home</a></li>
+            <li><a href="#about" onclick="closeMobileMenu()">About</a></li>
+            <li><a href="javascript:void(0)" onclick="openTrainerModal(); closeMobileMenu();">Your Trainer</a></li>
+            <li><a href="#services" onclick="closeMobileMenu()">Services</a></li>
+            <li><a href="#plans" onclick="closeMobileMenu()">Plans</a></li>
+            <li><a href="#gallery" onclick="closeMobileMenu()">Gallery</a></li>
+            <li><a href="#register" onclick="closeMobileMenu()">Register</a></li>
+            <li><a href="#contact" onclick="closeMobileMenu()">Contact</a></li>
         </ul>
 
         <a href="#register" class="join-btn">Join Now</a>
+
+        <!-- Mobile Action Container -->
+        <div class="nav-buttons-container">
+            <button class="mobile-trainer-btn" onclick="openTrainerModal()">Trainers</button>
+            <div class="hamburger" onclick="toggleMobileMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
     </nav>
 </header>
 
@@ -460,12 +542,39 @@
                 </a>
             </div>
 
+            <!-- Trainer 3: Mr Divyanshu Rathi -->
+            <div class="trainer-card">
+                <div class="trainer-img-wrapper">
+                    <img src="gym-3.png" alt="Mr Divyanshu Rathi">
+                </div>
+                <h3>Mr Divyanshu Rathi</h3>
+                <p class="role">Chest & Shoulder Specialist</p>
+                <p class="bio">Always there to listen, keep you motivated through tough times, and build true friendship on your journey.</p>
+                <a href="https://www.instagram.com/divyanshu.rathiii?igsh=MWU3ODNtY2RpMWRseQ==" target="_blank" class="insta-btn">
+                    📸 Instagram Profile
+                </a>
+            </div>
+
         </div>
     </div>
 </div>
 
 <!-- JavaScript Section -->
 <script>
+// Mobile Navigation Handlers
+function toggleMobileMenu() {
+    const navMenu = document.getElementById('navMenu');
+    navMenu.classList.toggle('active');
+}
+
+function closeMobileMenu() {
+    const navMenu = document.getElementById('navMenu');
+    if (navMenu.classList.contains('active')) {
+        navMenu.classList.remove('active');
+    }
+}
+
+// Form & Payment Flow Logic
 function handleSubmit(event) {
     event.preventDefault(); 
     
