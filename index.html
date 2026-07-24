@@ -374,6 +374,34 @@ function showCongratulations() {
     document.getElementById('congratsScreen').style.display = 'flex';
 }
 </script>
+<script>
+// Your existing handleSubmit and showCongratulations functions...
 
+// --- ADD THIS BMI CALCULATOR FUNCTION ---
+function calculateBMI() {
+    const weight = parseFloat(document.getElementById('weight').value);
+    const height = parseFloat(document.getElementById('height').value) / 100; // Convert cm to meters
+    const resultElement = document.getElementById('result');
+
+    if (isNaN(weight) || isNaN(height) || height <= 0 || weight <= 0) {
+        resultElement.style.color = "#ff4500";
+        resultElement.innerText = "Please enter valid weight and height.";
+        return;
+    }
+
+    const bmi = (weight / (height * height)).toFixed(1);
+    let category = "";
+
+    if (bmi < 18.5) category = "Underweight";
+    else if (bmi < 24.9) category = "Normal weight";
+    else if (bmi < 29.9) category = "Overweight";
+    else category = "Obese";
+
+    resultElement.style.color = "#ffffff";
+    resultElement.style.fontWeight = "600";
+    resultElement.style.marginTop = "15px";
+    resultElement.innerText = `Your BMI is ${bmi} (${category})`;
+}
+</script>
 </body>
 </html>
